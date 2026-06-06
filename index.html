@@ -180,17 +180,53 @@ section{position:relative;}
   transition:gap .3s,border-color .3s,color .3s;
 }
 .textures-words .story-link:hover{gap:18px;border-color:rgba(242,235,221,.7);color:#F2EBDD;}
-.textures-mosaic{
-  display:grid;grid-template-columns:1fr 1fr;
-  gap:clamp(8px,1vw,14px);
+.textures-mosaic{}
+/* horizontal scroll carousel */
+.t-scroll-wrap{position:relative;}
+.t-scroll{
+  display:flex;gap:clamp(10px,1.2vw,18px);
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  scrollbar-width:none;padding-bottom:4px;
 }
-.textures-mosaic .t-big{grid-row:1/3;}
-.textures-mosaic img{width:100%;object-fit:cover;border-radius:2px;box-shadow:0 20px 50px -20px rgba(0,0,0,.7);}
-.textures-mosaic .t-big img{height:100%;max-height:560px;}
-.textures-mosaic .t-sm img{aspect-ratio:1/1;}
+.t-scroll::-webkit-scrollbar{display:none;}
+.t-scroll figure{
+  flex:0 0 calc(clamp(220px,40vh,420px) * .8);
+  width:calc(clamp(220px,40vh,420px) * .8);
+  scroll-snap-align:start;margin:0;
+  display:flex;flex-direction:column;
+}
+.t-scroll figure img{
+  width:100%;height:clamp(220px,40vh,420px);
+  object-fit:cover;border-radius:2px;
+  box-shadow:0 20px 50px -24px rgba(0,0,0,.85);
+  display:block;flex-shrink:0;
+}
+.t-scroll figure figcaption{
+  margin-top:10px;
+  font-family:var(--serif);font-style:italic;
+  font-size:13px;color:rgba(242,235,221,.55);
+  line-height:1.4;text-align:left;
+}
+.t-scroll-controls{
+  display:flex;align-items:center;
+  justify-content:space-between;margin-top:20px;
+}
+.t-scroll-count{
+  font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(242,235,221,.35);
+}
+.t-scroll-btns{display:flex;gap:10px;}
+.t-scroll-btn{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid rgba(242,235,221,.25);
+  display:grid;place-items:center;
+  cursor:pointer;background:none;
+  color:rgba(242,235,221,.6);font-size:17px;
+  transition:.2s;
+}
+.t-scroll-btn:hover{border-color:rgba(242,235,221,.65);color:#F2EBDD;}
 @media(max-width:800px){
   .textures-inner{grid-template-columns:1fr;}
-  .textures-mosaic .t-big img{max-height:320px;}
 }
 
 /* ── LENSES ── */
@@ -362,9 +398,23 @@ As a visual storyteller, I collect colours, textures and observations that often
           <a class="story-link" href="story-summer-bundled.html">Summer in Textures — Open story →</a>
         </div>
         <div class="textures-mosaic">
-          <div class="t-big"><img src="images/s-mango.png" alt="Mango — summer textures"></div>
-          <div class="t-sm"><img src="images/w-summer-wm.png" alt="Watermelon — summer textures"></div>
-          <div class="t-sm"><img src="images/s-gola.png" alt="Gola — summer textures"></div>
+          <div class="t-scroll-wrap">
+            <div class="t-scroll" id="scroll-summer">
+              <figure><img src="images/s-mango-2.png" alt="Mango"><figcaption>we wait the whole year for this</figcaption></figure>
+              <figure><img src="images/s-grapes.png" alt="Grapes"><figcaption>start with a few, finish the whole bowl</figcaption></figure>
+              <figure><img src="images/s-icecream.png" alt="Ice cream"><figcaption>trying to eat fast before it melts — never works</figcaption></figure>
+              <figure><img src="images/s-watermelon-masala.png" alt="Watermelon with masala"><figcaption>"thoda aur masala daal do" is mandatory</figcaption></figure>
+              <figure><img src="images/s-watermelon.png" alt="Watermelon"><figcaption>we all say "bas ek aur" at least five times</figcaption></figure>
+              <figure><img src="images/s-gola-2.png" alt="Gola"><figcaption>and somehow we still remember the color of our tongues</figcaption></figure>
+            </div>
+            <div class="t-scroll-controls">
+              <span class="t-scroll-count" id="summer-count">01 / 06</span>
+              <div class="t-scroll-btns">
+                <button class="t-scroll-btn" onclick="scrollSummer(-1)" aria-label="Previous">←</button>
+                <button class="t-scroll-btn" onclick="scrollSummer(1)" aria-label="Next">→</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
